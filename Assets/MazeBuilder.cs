@@ -14,6 +14,7 @@ public class MazeBuilder : MonoBehaviour {
     public GameObject Wall;
     public GameObject AugmentedWall;
     public GameObject PointMarker;
+    public GameObject RoomMarker;
 
     public Transform playerSpawn;
     public Transform endMazeMarker;
@@ -27,12 +28,14 @@ public class MazeBuilder : MonoBehaviour {
         Wall.transform.parent = transform;
         PointMarker.transform.parent = transform;
         PointMarker.SetActive(false);
+        RoomMarker.transform.parent = transform;
+        RoomMarker.SetActive(false);
         Floor.transform.parent = transform;
 
         GenerateFrame();
     }
 
-    void PlaceTemplate(GameObject obj, Vector3 pos, int angle, string name)
+    GameObject PlaceTemplate(GameObject obj, Vector3 pos, int angle, string name)
     {
         var wall = GameObject.Instantiate(obj) as GameObject;
         wall.SetActive(true);
@@ -40,16 +43,17 @@ public class MazeBuilder : MonoBehaviour {
         wall.transform.parent = obj.transform.parent;
         wall.transform.localRotation = Quaternion.Euler(0, angle, 0);
         wall.transform.localPosition = pos;
+        return wall;
     }
 
-    void PlaceWall(Vector3 pos, int angle, string name)
+    GameObject PlaceWall(Vector3 pos, int angle, string name)
     {
-        PlaceTemplate(Wall, pos, angle, name);
+        return PlaceTemplate(Wall, pos, angle, name);
     }
 
-    void PlaceAugmentedWall(Vector3 pos, int angle, string name)
+    GameObject PlaceAugmentedWall(Vector3 pos, int angle, string name)
     {
-        PlaceTemplate(AugmentedWall, pos, angle, name);
+        return PlaceTemplate(AugmentedWall, pos, angle, name);
     }
 
     void GenerateFrame()
@@ -198,6 +202,16 @@ public class MazeBuilder : MonoBehaviour {
         {
             var specialPos = right * special.x + down * special.y + cellCenter;
             PlaceTemplate(PointMarker, specialPos, 0, string.Format("Points_{0:D2}_{1:D2}", special.x, special.y));
+        }
+
+        // Mark boss areas
+        foreach (var room in maze.BossRooms)
+        {
+            var roomPos = right * room.startX + down * room.startY;
+            var roomScale = right * room.width + down * -room.height; // Compensate for down being negative 
+
+            var marker = PlaceTemplate(RoomMarker, roomPos, 0, "BossRoom");
+            marker.transform.localScale = roomScale;
         }
     }
 }
