@@ -690,8 +690,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c1e5a7c104e6e4abcabb4a78fd59b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MazeWidth: 10
-  MazeHeight: 10
+  MazeWidth: 20
+  MazeHeight: 20
   CellWidth: 10
   CellHeight: 10
   EdgePillar: {fileID: 841853704}
@@ -699,6 +699,7 @@ MonoBehaviour:
   Wall: {fileID: 1688139183}
   AugmentedWall: {fileID: 1971725311}
   playerSpawn: {fileID: 142656045}
+  endMazeMarker: {fileID: 1685811469}
 --- !u!1 &1577827502
 GameObject:
   m_ObjectHideFlags: 0

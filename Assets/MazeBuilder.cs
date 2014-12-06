@@ -15,6 +15,7 @@ public class MazeBuilder : MonoBehaviour {
     public GameObject AugmentedWall;
 
     public Transform playerSpawn;
+    public Transform endMazeMarker;
 
     void Start () {
         EdgePillar.SetActive(false);
@@ -51,6 +52,7 @@ public class MazeBuilder : MonoBehaviour {
     {
         var down = Vector3.back * CellHeight;
         var right = Vector3.right * CellWidth;
+        var cellCenter = down * 0.5f + right * 0.5f;
 
         for (int col = 0; col < MazeWidth + 1; ++col)
         {
@@ -154,7 +156,7 @@ public class MazeBuilder : MonoBehaviour {
         var spawnX = 0;
         var spawnY = 0;
 
-        var playerLocalPos = right * (0.5f + spawnX) + down * (0.5f + spawnY);
+        var playerLocalPos = right * spawnX + down * spawnY + cellCenter;
         
         // Find first wall-less direction
         var startCell = maze.Get(spawnX, spawnY);
@@ -169,5 +171,11 @@ public class MazeBuilder : MonoBehaviour {
 
         playerSpawn.position = transform.TransformVector(playerLocalPos);
         playerSpawn.rotation = transform.rotation * playerLocalDir;
+
+        var endX = MazeWidth - 1;
+        var endY = MazeHeight - 1;
+
+        var markerLocalPos = right * endX + down * endY + cellCenter;
+        endMazeMarker.position = transform.TransformPoint(markerLocalPos);
     }
 }
