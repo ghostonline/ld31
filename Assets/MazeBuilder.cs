@@ -11,12 +11,25 @@ public class MazeBuilder : MonoBehaviour {
 
     public GameObject EdgePillar;
     public GameObject Floor;
+    public GameObject AugmentedWall;
 
     void Start () {
         EdgePillar.SetActive(false);
+        EdgePillar.transform.parent = transform;
+        AugmentedWall.SetActive(false);
+        AugmentedWall.transform.parent = transform;
         Floor.transform.parent = transform;
 
         GenerateFrame();
+    }
+
+    void PlaceWall(Vector3 pos, int angle, string name)
+    {
+        var wall = GameObject.Instantiate(AugmentedWall) as GameObject;
+        wall.SetActive(true);
+        wall.name = name;
+        wall.transform.localRotation = Quaternion.Euler(0, angle, 0);
+        wall.transform.localPosition = pos;
     }
 
     void GenerateFrame()
@@ -32,9 +45,26 @@ public class MazeBuilder : MonoBehaviour {
                 var pillar = GameObject.Instantiate(EdgePillar) as GameObject;
                 pillar.SetActive(true);
                 pillar.name = string.Format("Pillar_{0:D2}_{1:D2}", col, row);
-                pillar.transform.parent = transform;
                 pillar.transform.localPosition = pos;
             }
+        }
+
+        for (int row = 0; row < MazeHeight; ++row)
+        {
+            var posX = down * row + down * 0.5f;
+            var nameA = string.Format("AugmentedBound_L{0:D2}", row);
+            PlaceWall(posX, 270, nameA);
+            var nameB = string.Format("AugmentedBound_R{0:D2}", row);
+            PlaceWall(posX + right * MazeWidth, 90, nameB);
+        }
+
+        for (int col = 0; col < MazeWidth; ++col)
+        {
+            var posY = right * col + right * 0.5f;
+            var nameA = string.Format("AugmentedBound_B{0:D2}", col);
+            PlaceWall(posY, 180, nameA);
+            var nameB = string.Format("AugmentedBound_T{0:D2}", col);
+            PlaceWall(posY + down * MazeHeight, 0, nameB);
         }
 
         Floor.transform.localPosition = right * -0.5f + down * -0.5f;
