@@ -25,13 +25,22 @@ public class Maze {
         public int y { get; private set; }
     }
 
-    class Wall
+    public class Wall
     {
         public Wall(int cellX, int cellY, Direction wall) { this.cellX = cellX; this.cellY = cellY; this.wall = wall; }
 
         public int cellX;
         public int cellY;
         public Direction wall;
+    }
+
+    public class BossRoom
+    {
+        public int startX;
+        public int startY;
+        public int width;
+        public int height;
+        public Wall entrance;
     }
 
     static void DirectionToPlace(int x, int y, Direction dir, out int targetX, out int targetY)
@@ -83,6 +92,7 @@ public class Maze {
         var random = new Random((int)(UnityEngine.Random.value * Int32.MaxValue));
         var layout = new Cell[width * height];
 
+        var bossRooms = new List<BossRoom>();
         var bossEntrances = new List<Wall>();
         // Create four boss rooms
         {
@@ -134,6 +144,14 @@ public class Maze {
                 var entrancePos = entranceOptions[(int)entranceDir];
                 var wall = new Wall(entrancePos.x + offsetX, entrancePos.y + offsetY, entranceDir);
                 bossEntrances.Add(wall);
+
+                var room = new BossRoom();
+                room.startX = offsetX;
+                room.startY = offsetY;
+                room.width = roomWidth;
+                room.height = roomHeight;
+                room.entrance = wall;
+                bossRooms.Add(room);
             }
 
         }
@@ -229,6 +247,7 @@ public class Maze {
         maze.width = width;
         maze.height = height;
         maze.Specials = specials;
+        maze.BossRooms = bossRooms;
         return maze;
     }
 
@@ -242,4 +261,5 @@ public class Maze {
     int width;
     int height;
     public List<Point> Specials { get; private set; }
+    public List<BossRoom> BossRooms { get; private set; }
 }
