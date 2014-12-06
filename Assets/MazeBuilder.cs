@@ -15,21 +15,24 @@ public class MazeBuilder : MonoBehaviour {
     public GameObject AugmentedWall;
     public GameObject PointMarker;
     public GameObject RoomMarker;
+    public GameObject EntranceMarker;
 
     public Transform playerSpawn;
     public Transform endMazeMarker;
 
+    void AddTemplate(GameObject template)
+    {
+        template.transform.parent = transform;
+        template.SetActive(false);
+    }
+
     void Start () {
-        EdgePillar.SetActive(false);
-        EdgePillar.transform.parent = transform;
-        AugmentedWall.SetActive(false);
-        AugmentedWall.transform.parent = transform;
-        Wall.SetActive(false);
-        Wall.transform.parent = transform;
-        PointMarker.transform.parent = transform;
-        PointMarker.SetActive(false);
-        RoomMarker.transform.parent = transform;
-        RoomMarker.SetActive(false);
+        AddTemplate(EdgePillar);
+        AddTemplate(AugmentedWall);
+        AddTemplate(Wall);
+        AddTemplate(PointMarker);
+        AddTemplate(RoomMarker);
+        AddTemplate(EntranceMarker);
         Floor.transform.parent = transform;
 
         GenerateFrame();
@@ -205,13 +208,22 @@ public class MazeBuilder : MonoBehaviour {
         }
 
         // Mark boss areas
+        int roomId = 0;
         foreach (var room in maze.BossRooms)
         {
             var roomPos = right * room.startX + down * room.startY;
             var roomScale = right * room.width + down * -room.height; // Compensate for down being negative 
 
-            var marker = PlaceTemplate(RoomMarker, roomPos, 0, "BossRoom");
+            var marker = PlaceTemplate(RoomMarker, roomPos, 0, string.Format("BossRoom_{0}", roomId));
             marker.transform.localScale = roomScale;
+
+            var entrance = room.entrance;
+            var entranceOffset = directionOffset[(int)entrance.wall];
+            var entranceAngle = directionAngle[(int)entrance.wall];
+            var entrancePos = right * entrance.cellX + down * entrance.cellY + entranceOffset;
+            PlaceTemplate(EntranceMarker, entrancePos, entranceAngle, string.Format("BossEntrance_{0}", roomId));
+            
+            ++roomId;
         }
     }
 }
