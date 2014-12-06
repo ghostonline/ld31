@@ -37,9 +37,9 @@ public class Maze {
             0,
         };
         int[] dirToY = {
-            1,
-            0,
             -1,
+            0,
+            1,
             0,
             0,
         };

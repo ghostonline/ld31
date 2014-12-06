@@ -80,9 +80,9 @@ public class MazeBuilder : MonoBehaviour {
 
         var maze = Maze.Generate(MazeWidth, MazeHeight);
         Vector3[] directionOffset = {
-            right * 0.5f + down,
-            right + down * 0.5f,
             right * 0.5f,
+            right + down * 0.5f,
+            right * 0.5f + down,
             down * 0.5f,
             Vector3.zero,
         };
@@ -95,8 +95,10 @@ public class MazeBuilder : MonoBehaviour {
         };
 
         int[] directionLimit = {
+            //(int)Maze.Direction.Up, // Enable this for debug
             (int)Maze.Direction.Right,
             (int)Maze.Direction.Down,
+            //(int)Maze.Direction.Left, // Enable this for debug
         };
 
         {
@@ -106,7 +108,7 @@ public class MazeBuilder : MonoBehaviour {
             {
                 var pos = row * down + col * right;
                 var cell = maze.Get(col, row);
-                if (cell.walls[dirIdx])
+                if (cell != null && cell.walls[dirIdx])
                 {
                     PlaceWall(pos + directionOffset[dirIdx], directionAngle[dirIdx], string.Format("MazeWall_{0:D2}_{1:D2}_{2}", col, row, dirIdx));
                 }
@@ -115,12 +117,12 @@ public class MazeBuilder : MonoBehaviour {
 
         {
             int dirIdx = (int)Maze.Direction.Up;
-            int row = MazeHeight - 1;  // Note Bart: This is not correct, should be 0 (maze inverted?)
+            int row = 0;
             for (int col = 0; col < MazeWidth; ++col)
             {
                 var pos = row * down + col * right;
                 var cell = maze.Get(col, row);
-                if (cell.walls[dirIdx])
+                if (cell != null && cell.walls[dirIdx])
                 {
                     PlaceWall(pos + directionOffset[dirIdx], directionAngle[dirIdx], string.Format("MazeWall_{0:D2}_{1:D2}_{2}", col, row, dirIdx));
                 }
@@ -159,9 +161,9 @@ public class MazeBuilder : MonoBehaviour {
         var playerLocalDir = Quaternion.identity;
         for (int ii = (int)Maze.Direction.Count - 1; ii >= 0; --ii)
         {
-            if (!startCell.walls[ii])
+            if (startCell != null && !startCell.walls[ii])
             {
-                playerLocalDir = Quaternion.Euler(0, directionAngle[ii] + 180, 0); // Note Bart: addition of 180 is should not be neccesary (inverted maze?)
+                playerLocalDir = Quaternion.Euler(0, directionAngle[ii], 0);
             }
         }
 
