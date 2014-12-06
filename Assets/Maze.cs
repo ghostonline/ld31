@@ -156,8 +156,6 @@ public class Maze {
 
         }
 
-        var walls = new List<Wall>();
-
         // Get start cell
         int startX, startY;
         do
@@ -166,6 +164,27 @@ public class Maze {
             startY = random.Next(height);
         } while (layout[startX + startY * width] != null);
 
+        // Sprinkle maze with special locations (done just before generating maze to prevent spawning in boss rooms)
+        var specials = new List<Point>();
+        const int PointDistribution = 3;
+        int widthInterval = width / PointDistribution;
+        int heightInterval = height / PointDistribution;
+        for (int col = 0; col < width - widthInterval; col += widthInterval)
+        {
+            for (int row = 0; row < height - heightInterval; row += heightInterval)
+            {
+                int posX, posY;
+                do
+                {
+                    posX = col + random.Next(widthInterval);
+                    posY = row + random.Next(heightInterval);
+                } while (layout[posX + posY * width] != null || (posX == startX && posY == startY));
+                var point = new Point(posX, posY);
+                specials.Add(point);
+            }
+        }
+
+        var walls = new List<Wall>();
 
         // Add all its walls to the active list
         int startIdx = startX + startY * width;
@@ -224,22 +243,6 @@ public class Maze {
             var opposite = GetOpposite(innerWall.wall);
             int outerIdx = outerX + outerY * width;
             layout[outerIdx].walls[(int)opposite] = false;
-        }
-
-        // Sprinkle maze with special locations
-        var specials = new List<Point>();
-        const int PointDistribution = 3;
-        int widthInterval = width / PointDistribution;
-        int heightInterval = height / PointDistribution;
-        for (int col = 0; col < width - widthInterval; col += widthInterval)
-        {
-            for (int row = 0; row < height - heightInterval; row += heightInterval)
-            {
-                int posX = col + random.Next(widthInterval);
-                int posY = row + random.Next(heightInterval);
-                var point = new Point(posX, posY);
-                specials.Add(point);
-            }
         }
 
         var maze = new Maze();
