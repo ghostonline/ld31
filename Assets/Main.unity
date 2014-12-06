@@ -1056,6 +1056,8 @@ GameObject:
   - 4: {fileID: 1067153670}
   - 114: {fileID: 1067153671}
   - 135: {fileID: 1067153672}
+  - 114: {fileID: 1067153673}
+  - 54: {fileID: 1067153674}
   m_Layer: 9
   m_Name: DisplacedMarker
   m_TagString: Untagged
@@ -1103,6 +1105,33 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: .5
   m_Center: {x: 0, y: 1.79999995, z: 0}
+--- !u!114 &1067153673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1067153669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ddeb7b1c20eebd4f9a029c7b684333b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1369803292}
+--- !u!54 &1067153674
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1067153669}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1143669007
 GameObject:
   m_ObjectHideFlags: 0
