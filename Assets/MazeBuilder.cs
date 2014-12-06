@@ -148,8 +148,13 @@ public class MazeBuilder : MonoBehaviour {
         {
             for (int row = 0; row < MazeHeight + 1; ++row)
             {
-                var cell = maze.Get(col, row);
-                if (cell == null || cell.walls[(int)Maze.Direction.Up] || cell.walls[(int)Maze.Direction.Left])
+                var cellLower = maze.Get(col, row);
+                var cellUpper = maze.Get(col - 1, row - 1);
+                bool place = cellLower == null || cellUpper == null
+                    || cellLower.walls[(int)Maze.Direction.Up] || cellLower.walls[(int)Maze.Direction.Left]
+                    || cellUpper.walls[(int)Maze.Direction.Down] || cellUpper.walls[(int)Maze.Direction.Right]
+                    ;
+                if (place)
                 {
                     var pos = down * row + right * col;
                     var name = string.Format("Pillar_{0:D2}_{1:D2}", col, row);
