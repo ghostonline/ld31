@@ -47,7 +47,7 @@ public class MazeBuilder : MonoBehaviour {
 
     void GenerateFrame()
     {
-        var down = Vector3.forward * CellHeight;
+        var down = Vector3.back * CellHeight;
         var right = Vector3.right * CellWidth;
 
         for (int col = 0; col < MazeWidth + 1; ++col)
@@ -66,18 +66,47 @@ public class MazeBuilder : MonoBehaviour {
             var posR = posL + right * MazeWidth;
             PlaceAugmentedWall(posL, 270, string.Format("AugmentedBound_L{0:D2}", row));
             PlaceAugmentedWall(posR, 90, string.Format("AugmentedBound_R{0:D2}", row));
-            PlaceWall(posL, 270, string.Format("Bound_L{0:D2}", row));
-            PlaceWall(posR, 90, string.Format("Bound_R{0:D2}", row));
         }
 
         for (int col = 0; col < MazeWidth; ++col)
         {
             var posB = right * col + right * 0.5f;
             var posT = posB + down * MazeHeight;
-            PlaceAugmentedWall(posB, 180, string.Format("AugmentedBound_B{0:D2}", col));
-            PlaceAugmentedWall(posT, 0, string.Format("AugmentedBound_T{0:D2}", col));
-            PlaceWall(posB, 180, string.Format("Bound_B{0:D2}", col));
-            PlaceWall(posT, 0, string.Format("Bound_T{0:D2}", col));
+            PlaceAugmentedWall(posB, 0, string.Format("AugmentedBound_B{0:D2}", col));
+            PlaceAugmentedWall(posT, 180, string.Format("AugmentedBound_T{0:D2}", col));
+        }
+
+        var maze = Maze.Generate(MazeWidth, MazeHeight);
+        Vector3[] directionOffset = {
+            right * 0.5f + down,
+            right + down * 0.5f,
+            right * 0.5f,
+            down * 0.5f,
+            Vector3.zero,
+        };
+
+        int[] directionAngle = {
+            0,
+            90,
+            180,
+            270,
+        };
+
+        for (int col = 0; col < MazeWidth; ++col)
+        {
+            for (int row = 0; row < MazeHeight; ++row)
+            {
+                var cell = maze.Get(col, row);
+                var pos = col * right + row * down;
+                if (cell == null) { Debug.LogWarning("Uninitialized cell found!"); continue; }
+                for (int ii = (int)Maze.Direction.Count - 1; ii >= 0; --ii)
+                {
+                    if (cell.walls[ii])
+                    {
+                        PlaceWall(pos + directionOffset[ii], directionAngle[ii], string.Format("MazeWall_{0:D2}_{1:D2}_{2}", col, row, ii));
+                    }
+                }
+            }
         }
 
         Floor.transform.localPosition = right * -0.5f + down * -0.5f;
