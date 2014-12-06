@@ -1,0 +1,5 @@
+# Autodetect text files
+*       text=auto
+
+# Force cs files to text
+*.cs    text
