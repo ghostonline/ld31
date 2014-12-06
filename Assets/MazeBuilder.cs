@@ -92,6 +92,39 @@ public class MazeBuilder : MonoBehaviour {
             270,
         };
 
+        int[] directionLimit = {
+            (int)Maze.Direction.Right,
+            (int)Maze.Direction.Down,
+        };
+
+        {
+            int dirIdx = (int)Maze.Direction.Left;
+            int col = 0;
+            for (int row = 0; row < MazeHeight; ++row)
+            {
+                var pos = row * down + col * right;
+                var cell = maze.Get(col, row);
+                if (cell.walls[dirIdx])
+                {
+                    PlaceWall(pos + directionOffset[dirIdx], directionAngle[dirIdx], string.Format("MazeWall_{0:D2}_{1:D2}_{2}", col, row, dirIdx));
+                }
+            }
+        }
+
+        {
+            int dirIdx = (int)Maze.Direction.Up;
+            int row = MazeHeight - 1;  // Note Bart: This is not correct, should be 0 (maze inverted?)
+            for (int col = 0; col < MazeWidth; ++col)
+            {
+                var pos = row * down + col * right;
+                var cell = maze.Get(col, row);
+                if (cell.walls[dirIdx])
+                {
+                    PlaceWall(pos + directionOffset[dirIdx], directionAngle[dirIdx], string.Format("MazeWall_{0:D2}_{1:D2}_{2}", col, row, dirIdx));
+                }
+            }
+        }
+
         for (int col = 0; col < MazeWidth; ++col)
         {
             for (int row = 0; row < MazeHeight; ++row)
@@ -99,11 +132,12 @@ public class MazeBuilder : MonoBehaviour {
                 var cell = maze.Get(col, row);
                 var pos = col * right + row * down;
                 if (cell == null) { Debug.LogWarning("Uninitialized cell found!"); continue; }
-                for (int ii = (int)Maze.Direction.Count - 1; ii >= 0; --ii)
+                for (int ii = directionLimit.Length - 1; ii >= 0; --ii)
                 {
-                    if (cell.walls[ii])
+                    int dirIdx = directionLimit[ii];
+                    if (cell.walls[dirIdx])
                     {
-                        PlaceWall(pos + directionOffset[ii], directionAngle[ii], string.Format("MazeWall_{0:D2}_{1:D2}_{2}", col, row, ii));
+                        PlaceWall(pos + directionOffset[dirIdx], directionAngle[dirIdx], string.Format("MazeWall_{0:D2}_{1:D2}_{2}", col, row, dirIdx));
                     }
                 }
             }
