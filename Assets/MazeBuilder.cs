@@ -19,6 +19,7 @@ public class MazeBuilder : MonoBehaviour {
 
     public Transform playerSpawn;
     public Transform endMazeMarker;
+    public Transform floorCollider;
 
     void AddTemplate(GameObject template)
     {
@@ -33,7 +34,9 @@ public class MazeBuilder : MonoBehaviour {
         AddTemplate(PointMarker);
         AddTemplate(RoomMarker);
         AddTemplate(EntranceMarker);
-        Floor.transform.parent = transform;
+        AddTemplate(Floor);
+        floorCollider.transform.parent = transform;
+        floorCollider.transform.localPosition = Vector3.zero;
 
         GenerateFrame();
     }
@@ -170,8 +173,19 @@ public class MazeBuilder : MonoBehaviour {
             }
         }
 
-        Floor.transform.localPosition = right * -0.5f + down * -0.5f;
-        Floor.transform.localScale = right * (MazeWidth + 1) + down * (MazeHeight + 1);
+        // Lay down floor tiles
+        for (int col = 0; col < MazeWidth; ++col)
+        {
+            for (int row = 0; row < MazeHeight; ++row)
+            {
+                var pos = down * row + right * col;
+                var name = string.Format("Floor_{0:D2}_{1:D2}", col, row);
+                PlaceTemplate(Floor, pos, 0, name);
+            }
+        }
+
+        // Stretch floor collider
+        floorCollider.transform.localScale = right * MazeWidth + down * -MazeHeight; // Compensate for negative zoom
 
         // Place player in maze
         var spawnX = 0;
