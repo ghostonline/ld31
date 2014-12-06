@@ -130,6 +130,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1971725312}
   m_RootOrder: 0
+--- !u!1 &142656044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 142656045}
+  m_Layer: 0
+  m_Name: PlayerSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &142656045
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 142656044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5, y: 0, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1369803292}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &351121210
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,13 +498,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369803291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 2.01999998, z: 2.5}
+  m_LocalPosition: {x: 0, y: 2.01999998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1987725486}
   - {fileID: 1975434008}
   - {fileID: 1732358697}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 142656045}
   m_RootOrder: 0
 --- !u!114 &1369803293
 MonoBehaviour:
@@ -670,6 +698,7 @@ MonoBehaviour:
   Floor: {fileID: 1432512609}
   Wall: {fileID: 1688139183}
   AugmentedWall: {fileID: 1971725311}
+  playerSpawn: {fileID: 142656045}
 --- !u!1 &1577827502
 GameObject:
   m_ObjectHideFlags: 0

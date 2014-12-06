@@ -14,6 +14,8 @@ public class MazeBuilder : MonoBehaviour {
     public GameObject Wall;
     public GameObject AugmentedWall;
 
+    public Transform playerSpawn;
+
     void Start () {
         EdgePillar.SetActive(false);
         EdgePillar.transform.parent = transform;
@@ -145,5 +147,25 @@ public class MazeBuilder : MonoBehaviour {
 
         Floor.transform.localPosition = right * -0.5f + down * -0.5f;
         Floor.transform.localScale = right * (MazeWidth + 1) + down * (MazeHeight + 1);
+
+        // Place player in maze
+        var spawnX = 0;
+        var spawnY = 0;
+
+        var playerLocalPos = right * (0.5f + spawnX) + down * (0.5f + spawnY);
+        
+        // Find first wall-less direction
+        var startCell = maze.Get(spawnX, spawnY);
+        var playerLocalDir = Quaternion.identity;
+        for (int ii = (int)Maze.Direction.Count - 1; ii >= 0; --ii)
+        {
+            if (!startCell.walls[ii])
+            {
+                playerLocalDir = Quaternion.Euler(0, directionAngle[ii] + 180, 0); // Note Bart: addition of 180 is should not be neccesary (inverted maze?)
+            }
+        }
+
+        playerSpawn.position = transform.TransformVector(playerLocalPos);
+        playerSpawn.rotation = transform.rotation * playerLocalDir;
     }
 }
