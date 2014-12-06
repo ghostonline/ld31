@@ -83,11 +83,71 @@ public class Maze {
         var random = new Random((int)(UnityEngine.Random.value * Int32.MaxValue));
         var layout = new Cell[width * height];
 
+        var bossEntrances = new List<Wall>();
+        // Create four boss rooms
+        {
+            int areaWidth = width / 2;
+            int areaHeight = height / 2;
+            int roomWidth = 4;
+            int roomHeight = 4;
+
+            int minOffsetX = 1; // Make sure there is at least a border of a single row between boss rooms
+            int minOffsetY = 1;
+            int maxOffsetX = areaWidth - roomWidth - minOffsetX * 2;
+            int maxOffsetY = areaHeight - roomHeight - minOffsetY * 2;
+
+            Point[] startPos = {
+                new Point(0,0),
+                new Point(0,areaHeight),
+                new Point(areaWidth,0),
+                new Point(areaWidth,areaHeight),
+            };
+
+            Point[] entranceOptions = {
+                new Point(roomWidth / 2, 0),
+                new Point(roomWidth - 1, roomHeight / 2),
+                new Point(roomWidth / 2, roomHeight - 1),
+                new Point(0, roomHeight / 2),
+            };
+
+            for (int ii = 0; ii < startPos.Length; ++ii)
+            {
+                var start = startPos[ii];
+                int offsetX = start.x + minOffsetX + random.Next(maxOffsetX);
+                int offsetY = start.y + minOffsetY + random.Next(maxOffsetY);
+
+                for (int col = 0; col < roomWidth; ++col)
+                {
+                    for (int row = 0; row < roomHeight; ++row)
+                    {
+                        var cell = new Cell();
+                        cell.walls[(int)Direction.Up] = row == 0;
+                        cell.walls[(int)Direction.Down] = row == (roomHeight - 1);
+                        cell.walls[(int)Direction.Left] = col == 0;
+                        cell.walls[(int)Direction.Right] = col == (roomWidth - 1);
+                        int idx = (offsetX + col) + (offsetY + row) * width;
+                        layout[idx] = cell;
+                    }
+                }
+
+                var entranceDir = (Direction)random.Next((int)Direction.Count);
+                var entrancePos = entranceOptions[(int)entranceDir];
+                var wall = new Wall(entrancePos.x + offsetX, entrancePos.y + offsetY, entranceDir);
+                bossEntrances.Add(wall);
+            }
+
+        }
+
         var walls = new List<Wall>();
 
         // Get start cell
-        int startX = random.Next(width);
-        int startY = random.Next(height);
+        int startX, startY;
+        do
+        {
+            startX = random.Next(width);
+            startY = random.Next(height);
+        } while (layout[startX + startY * width] != null);
+
 
         // Add all its walls to the active list
         int startIdx = startX + startY * width;
@@ -133,6 +193,19 @@ public class Maze {
                     walls.Add(newWall);
                 }
             }
+        }
+
+        // Open up boss entrances
+        for (int ii = 0; ii < bossEntrances.Count; ++ii)
+        {
+            var innerWall = bossEntrances[ii];
+            var innerIdx = innerWall.cellX + innerWall.cellY * width;
+            layout[innerIdx].walls[(int)innerWall.wall] = false;
+            int outerX, outerY;
+            DirectionToPlace(innerWall.cellX, innerWall.cellY, innerWall.wall, out outerX, out outerY);
+            var opposite = GetOpposite(innerWall.wall);
+            int outerIdx = outerX + outerY * width;
+            layout[outerIdx].walls[(int)opposite] = false;
         }
 
         // Sprinkle maze with special locations
