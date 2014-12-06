@@ -58,16 +58,6 @@ public class MazeBuilder : MonoBehaviour {
         var right = Vector3.right * CellWidth;
         var cellCenter = down * 0.5f + right * 0.5f;
 
-        for (int col = 0; col < MazeWidth + 1; ++col)
-        {
-            for (int row = 0; row < MazeHeight + 1; ++row)
-            {
-                var pos = down * row + right * col;
-                var name = string.Format("Pillar_{0:D2}_{1:D2}", col, row);
-                PlaceTemplate(EdgePillar, pos, 0, name);
-            }
-        }
-
         for (int row = 0; row < MazeHeight; ++row)
         {
             var posL = down * row + down * 0.5f;
@@ -149,6 +139,21 @@ public class MazeBuilder : MonoBehaviour {
                     {
                         PlaceWall(pos + directionOffset[dirIdx], directionAngle[dirIdx], string.Format("MazeWall_{0:D2}_{1:D2}_{2}", col, row, dirIdx));
                     }
+                }
+            }
+        }
+
+        // Place pillars when walls are adjacent
+        for (int col = 0; col < MazeWidth + 1; ++col)
+        {
+            for (int row = 0; row < MazeHeight + 1; ++row)
+            {
+                var cell = maze.Get(col, row);
+                if (cell == null || cell.walls[(int)Maze.Direction.Up] || cell.walls[(int)Maze.Direction.Left])
+                {
+                    var pos = down * row + right * col;
+                    var name = string.Format("Pillar_{0:D2}_{1:D2}", col, row);
+                    PlaceTemplate(EdgePillar, pos, 0, name);
                 }
             }
         }
