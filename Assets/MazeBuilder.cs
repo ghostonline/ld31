@@ -13,6 +13,7 @@ public class MazeBuilder : MonoBehaviour {
     public GameObject Floor;
     public GameObject Wall;
     public GameObject AugmentedWall;
+    public GameObject PointMarker;
 
     public Transform playerSpawn;
     public Transform endMazeMarker;
@@ -24,6 +25,8 @@ public class MazeBuilder : MonoBehaviour {
         AugmentedWall.transform.parent = transform;
         Wall.SetActive(false);
         Wall.transform.parent = transform;
+        PointMarker.transform.parent = transform;
+        PointMarker.SetActive(false);
         Floor.transform.parent = transform;
 
         GenerateFrame();
@@ -34,6 +37,7 @@ public class MazeBuilder : MonoBehaviour {
         var wall = GameObject.Instantiate(obj) as GameObject;
         wall.SetActive(true);
         wall.name = name;
+        wall.transform.parent = obj.transform.parent;
         wall.transform.localRotation = Quaternion.Euler(0, angle, 0);
         wall.transform.localPosition = pos;
     }
@@ -175,7 +179,15 @@ public class MazeBuilder : MonoBehaviour {
         var endX = MazeWidth - 1;
         var endY = MazeHeight - 1;
 
+        // Place end marker
         var markerLocalPos = right * endX + down * endY + cellCenter;
         endMazeMarker.position = transform.TransformPoint(markerLocalPos);
+
+        // Add points to maze
+        foreach (var special in maze.Specials)
+        {
+            var specialPos = right * special.x + down * special.y + cellCenter;
+            PlaceTemplate(PointMarker, specialPos, 0, string.Format("Points_{0:D2}_{1:D2}", special.x, special.y));
+        }
     }
 }

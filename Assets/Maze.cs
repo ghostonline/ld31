@@ -18,6 +18,13 @@ public class Maze {
         public bool[] walls;
     }
 
+    public class Point
+    {
+        public Point(int x, int y) { this.x = x; this.y = y; }
+        public int x { get; private set; }
+        public int y { get; private set; }
+    }
+
     class Wall
     {
         public Wall(int cellX, int cellY, Direction wall) { this.cellX = cellX; this.cellY = cellY; this.wall = wall; }
@@ -128,10 +135,27 @@ public class Maze {
             }
         }
 
+        // Sprinkle maze with special locations
+        var specials = new List<Point>();
+        const int PointDistribution = 3;
+        int widthInterval = width / PointDistribution;
+        int heightInterval = height / PointDistribution;
+        for (int col = 0; col < width - widthInterval; col += widthInterval)
+        {
+            for (int row = 0; row < height - heightInterval; row += heightInterval)
+            {
+                int posX = col + random.Next(widthInterval);
+                int posY = row + random.Next(heightInterval);
+                var point = new Point(posX, posY);
+                specials.Add(point);
+            }
+        }
+
         var maze = new Maze();
         maze.layout = layout;
         maze.width = width;
         maze.height = height;
+        maze.Specials = specials;
         return maze;
     }
 
@@ -144,4 +168,5 @@ public class Maze {
     Cell[] layout;
     int width;
     int height;
+    public List<Point> Specials { get; private set; }
 }
