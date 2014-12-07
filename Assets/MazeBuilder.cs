@@ -16,6 +16,7 @@ public class MazeBuilder : MonoBehaviour {
     public GameObject PointMarker;
     public GameObject RoomMarker;
     public GameObject EntranceMarker;
+    public GameObject Key;
 
     public Transform playerSpawn;
     public Transform endMazeMarker;
@@ -248,8 +249,8 @@ public class MazeBuilder : MonoBehaviour {
             var entrancePos = right * entrance.cellX + down * entrance.cellY + entranceOffset;
             PlaceTemplate(EntranceMarker, entrancePos, entranceAngle, string.Format("BossEntrance_{0}", roomId));
 
-            //var center = roomPos + (right * room.width + down * room.height) * 0.5f;
-            //PlaceTemplate(turretBoss.gameObject, center, entranceAngle, string.Format("Boss_{0}", roomId));
+            var center = roomPos + (right * room.width + down * room.height) * 0.5f;
+            PlaceTemplate(Key, center, entranceAngle, string.Format("Key_{0}", roomId));
 
             ++roomId;
         }
