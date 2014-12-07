@@ -219,13 +219,6 @@ public class MazeBuilder : MonoBehaviour {
         playerSpawn.position = transform.TransformVector(playerLocalPos);
         playerSpawn.rotation = transform.rotation * playerLocalDir;
 
-        var endX = MazeWidth - 1;
-        var endY = MazeHeight - 1;
-
-        // Place end marker
-        var markerLocalPos = right * endX + down * endY + cellCenter;
-        endMazeMarker.position = transform.TransformPoint(markerLocalPos);
-
         // Add points to maze
         foreach (var special in maze.Specials)
         {
@@ -250,7 +243,14 @@ public class MazeBuilder : MonoBehaviour {
             PlaceTemplate(EntranceMarker, entrancePos, entranceAngle, string.Format("BossEntrance_{0}", roomId));
 
             var center = roomPos + (right * room.width + down * room.height) * 0.5f;
-            PlaceTemplate(Key, center, entranceAngle, string.Format("Key_{0}", roomId));
+            if (roomId < 3)
+            {
+                PlaceTemplate(Key, center, entranceAngle, string.Format("Key_{0}", roomId));
+            }
+            else
+            {
+                endMazeMarker.position = transform.TransformPoint(center);
+            }
 
             ++roomId;
         }
