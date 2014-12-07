@@ -166,12 +166,12 @@ public class Maze {
 
         // Sprinkle maze with special locations (done just before generating maze to prevent spawning in boss rooms)
         var specials = new List<Point>();
-        const int PointDistribution = 3;
+        const int PointDistribution = 5;
         int widthInterval = width / PointDistribution;
         int heightInterval = height / PointDistribution;
-        for (int col = 0; col < width - widthInterval; col += widthInterval)
+        for (int col = 0; col <= width - widthInterval; col += widthInterval)
         {
-            for (int row = 0; row < height - heightInterval; row += heightInterval)
+            for (int row = 0; row <= height - heightInterval; row += heightInterval)
             {
                 int posX, posY;
                 do
