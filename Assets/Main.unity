@@ -1058,6 +1058,7 @@ GameObject:
   - 135: {fileID: 1067153672}
   - 114: {fileID: 1067153673}
   - 54: {fileID: 1067153674}
+  - 114: {fileID: 1067153675}
   m_Layer: 9
   m_Name: DisplacedMarker
   m_TagString: Untagged
@@ -1133,6 +1134,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &1067153675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1067153669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373402d5560e61f4592189737f8c9dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1369803292}
+  maxDistance: 1.5
+  shouldTrigger: 0
+  currentDistance: 0
 --- !u!1 &1143669007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,7 +2178,7 @@ GameObject:
   - 4: {fileID: 2143943392}
   - 54: {fileID: 2143943394}
   - 65: {fileID: 2143943393}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BossEntranceMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
