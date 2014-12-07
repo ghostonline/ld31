@@ -1299,6 +1299,7 @@ MonoBehaviour:
   rotationMirror: {fileID: 775830979}
   geometry: {fileID: 357179787}
   trigger: {fileID: 1067153675}
+  PhoneCamera: {fileID: 775830983}
 --- !u!1 &1369803291
 GameObject:
   m_ObjectHideFlags: 0
