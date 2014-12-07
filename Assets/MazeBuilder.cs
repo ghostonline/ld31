@@ -27,7 +27,7 @@ public class MazeBuilder : MonoBehaviour {
         template.SetActive(false);
     }
 
-    void Start () {
+    void Awake () {
         AddTemplate(EdgePillar);
         AddTemplate(AugmentedWall);
         AddTemplate(Wall);
