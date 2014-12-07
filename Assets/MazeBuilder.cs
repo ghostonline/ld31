@@ -21,9 +21,14 @@ public class MazeBuilder : MonoBehaviour {
     public Transform endMazeMarker;
     public Transform floorCollider;
 
+    public bool NoWalls;
+
     void AddTemplate(GameObject template)
     {
-        template.transform.parent = transform;
+        var container = new GameObject();
+        container.name = string.Format("{0}_container", template.name);
+        container.transform.parent = transform;
+        template.transform.parent = container.transform;
         template.SetActive(false);
     }
 
@@ -39,6 +44,8 @@ public class MazeBuilder : MonoBehaviour {
         floorCollider.transform.localPosition = Vector3.zero;
 
         GenerateFrame();
+
+        if (NoWalls) { Wall.transform.parent.gameObject.SetActive(false); }
     }
 
     GameObject PlaceTemplate(GameObject obj, Vector3 pos, int angle, string name)
