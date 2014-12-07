@@ -1162,6 +1162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1369803292}
   speed: 20
+  disconnectDistance: 2
 --- !u!54 &1067153674
 Rigidbody:
   m_ObjectHideFlags: 0
