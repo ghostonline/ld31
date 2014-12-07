@@ -6219,6 +6219,7 @@ GameObject:
   - 114: {fileID: 1917481657}
   - 135: {fileID: 1917481659}
   - 114: {fileID: 1917481660}
+  - 114: {fileID: 1917481661}
   m_Layer: 8
   m_Name: Key
   m_TagString: Untagged
@@ -6281,6 +6282,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PickupListener: {fileID: 598499438}
+--- !u!114 &1917481661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1917481656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce5dd7cfbac3697409281ae1550276ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1946715524
 GameObject:
   m_ObjectHideFlags: 0

@@ -241,12 +241,17 @@ public class MazeBuilder : MonoBehaviour {
             var entranceOffset = directionOffset[(int)entrance.wall];
             var entranceAngle = directionAngle[(int)entrance.wall];
             var entrancePos = right * entrance.cellX + down * entrance.cellY + entranceOffset;
-            PlaceTemplate(EntranceMarker, entrancePos, entranceAngle, string.Format("BossEntrance_{0}", roomId));
+            var entranceObj = PlaceTemplate(EntranceMarker, entrancePos, entranceAngle, string.Format("BossEntrance_{0}", roomId));
 
             var center = roomPos + (right * room.width + down * room.height) * 0.5f;
             if (roomId < 3)
             {
-                PlaceTemplate(Key, center, entranceAngle, string.Format("Key_{0}", roomId));
+                var key = PlaceTemplate(Key, center, entranceAngle, string.Format("Key_{0}", roomId));
+                var area = key.GetComponent<BoundArea>();
+                area.objects = new GameObject[] {
+                    marker,
+                    entranceObj,
+                };
             }
             else
             {

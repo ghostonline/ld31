@@ -27,6 +27,9 @@ public class KeyCounter : MonoBehaviour {
         ++keys;
         SetUIVisible(true);
         Destroy(key);
+        
+        var area = key.GetComponent<BoundArea>();
+        area.SetAreaVisible(false);
     }
 
 }
