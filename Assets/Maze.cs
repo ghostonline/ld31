@@ -87,6 +87,27 @@ public class Maze {
         return layout[idx] == null;
     }
 
+    static List<int> GenerateRange(int max)
+    {
+        var lst = new List<int>();
+        for (int ii = 0; ii < max; ++ii)
+        {
+            lst.Add(ii);
+        }
+        return lst;
+    }
+
+    static void Shuffle(List<int> lst, Random rnd)
+    {
+        for (int ii = 0; ii < lst.Count; ++ii)
+        {
+            var tgtIdx = ii + rnd.Next(lst.Count - ii);
+            var tgt = lst[tgtIdx];
+            lst[tgtIdx] = lst[ii];
+            lst[ii] = tgt;
+        }
+    }
+
     public static Maze Generate(int width, int height)
     {
         var random = new Random((int)(UnityEngine.Random.value * Int32.MaxValue));
@@ -169,18 +190,35 @@ public class Maze {
         const int PointDistribution = 5;
         int widthInterval = width / PointDistribution;
         int heightInterval = height / PointDistribution;
+        var rangeX = GenerateRange(widthInterval);
+        var rangeY = GenerateRange(heightInterval);
         for (int col = 0; col <= width - widthInterval; col += widthInterval)
         {
             for (int row = 0; row <= height - heightInterval; row += heightInterval)
             {
-                int posX, posY;
-                do
+                Shuffle(rangeX, random);
+                Shuffle(rangeY, random);
+                Point point = null;
+                foreach (int rndX in rangeX)
                 {
-                    posX = col + random.Next(widthInterval);
-                    posY = row + random.Next(heightInterval);
-                } while (layout[posX + posY * width] != null || (posX == startX && posY == startY));
-                var point = new Point(posX, posY);
-                specials.Add(point);
+                    foreach (int rndY in rangeY)
+                    {
+                        int posX = col + rndX;
+                        int posY = row + rndY;
+
+                        if (layout[posX + posY * width] == null && !(posX == startX && posY == startY))
+                        {
+                            point = new Point(posX, posY);
+                            specials.Add(point);
+                            break;
+                        }
+                    }
+
+                    if (point != null)
+                    {
+                        break;
+                    }
+                }
             }
         }
 
