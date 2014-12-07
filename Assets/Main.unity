@@ -1763,7 +1763,7 @@ MonoBehaviour:
   playerSpawn: {fileID: 142656045}
   endMazeMarker: {fileID: 1685811469}
   floorCollider: {fileID: 1847808337}
-  NoWalls: 0
+  NoWalls: 1
 --- !u!1 &1555800249
 GameObject:
   m_ObjectHideFlags: 0
