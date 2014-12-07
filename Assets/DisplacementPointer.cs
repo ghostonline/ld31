@@ -39,5 +39,11 @@ public class DisplacementPointer : MonoBehaviour
                 PhoneCamera.cullingMask |= augmentedMask;
             }
         }
+
+        if (visible)
+        {
+            var point = PhoneCamera.WorldToViewportPoint(trigger.transform.position);
+            geometry.SetActive(point.x < 0 || 1 < point.x || point.y < 0 || 1 < point.y || point.z < 0);
+        }
     }
 }
