@@ -122,16 +122,14 @@ public class Maze {
             const int roomWidth = 3;
             const int roomHeight = 3;
 
-            const int minOffsetX = 1; // Make sure there is at least a border of a single row between boss rooms
-            const int minOffsetY = 1;
-            int maxOffsetX = areaWidth - roomWidth - minOffsetX * 2;
-            int maxOffsetY = areaHeight - roomHeight - minOffsetY * 2;
+            int maxOffsetX = areaWidth - roomWidth;
+            int maxOffsetY = areaHeight - roomHeight;
 
             Point[] startPos = {
-                new Point(0,0),
-                new Point(0,areaHeight),
-                new Point(areaWidth,0),
-                new Point(areaWidth,areaHeight),
+                new Point(1,1),
+                new Point(1,areaHeight + 1),
+                new Point(areaWidth + 1,1),
+                new Point(areaWidth + 1,areaHeight + 1),
             };
 
             Point[] entranceOptions = {
@@ -144,8 +142,8 @@ public class Maze {
             for (int ii = 0; ii < startPos.Length; ++ii)
             {
                 var start = startPos[ii];
-                int offsetX = start.x + minOffsetX + random.Next(maxOffsetX);
-                int offsetY = start.y + minOffsetY + random.Next(maxOffsetY);
+                int offsetX = start.x + random.Next(maxOffsetX);
+                int offsetY = start.y + random.Next(maxOffsetY);
 
                 for (int col = 0; col < roomWidth; ++col)
                 {
