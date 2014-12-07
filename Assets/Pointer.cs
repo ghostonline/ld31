@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[UnityEngine.ExecuteInEditMode]
 public class Pointer : MonoBehaviour {
 
     public Transform origin;
