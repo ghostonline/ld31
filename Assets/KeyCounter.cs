@@ -7,22 +7,25 @@ public class KeyCounter : MonoBehaviour {
 
     public GameObject[] keyIcons;
 
-    void Start()
+    public void SetUIVisible(bool visible)
     {
+        int idx = 0;
         foreach (var icon in keyIcons)
         {
-            if (icon != null) { icon.SetActive(false); }
+            if (icon != null) { icon.SetActive(idx < keys && visible); }
+            ++idx;
         }
+    }
+
+    void Start()
+    {
+        SetUIVisible(true);
     }
 
     void OnPickup(GameObject key)
     {
-        if (keys < keyIcons.Length && keyIcons[keys] != null)
-        {
-            keyIcons[keys].SetActive(true);
-        }
-
         ++keys;
+        SetUIVisible(true);
         Destroy(key);
     }
 
