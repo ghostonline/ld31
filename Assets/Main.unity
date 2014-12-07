@@ -1295,7 +1295,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb2fb090caf2bd499766324e5e2f5cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 775830979}
+  rotationMirror: {fileID: 775830979}
+  geometry: {fileID: 357179787}
+  trigger: {fileID: 1067153675}
 --- !u!1 &1369803291
 GameObject:
   m_ObjectHideFlags: 0
