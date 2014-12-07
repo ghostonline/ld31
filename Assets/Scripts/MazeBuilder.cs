@@ -23,6 +23,7 @@ public class MazeBuilder : MonoBehaviour {
     public Transform floorCollider;
 
     public Boss turretBoss;
+    public PointCounter pointCounter;
 
     public bool NoWalls;
 
@@ -226,6 +227,7 @@ public class MazeBuilder : MonoBehaviour {
             var specialPos = right * special.x + down * special.y + cellCenter;
             PlaceTemplate(PointMarker, specialPos, 0, string.Format("Points_{0:D2}_{1:D2}", special.x, special.y));
         }
+        pointCounter.SetTotal(maze.Specials.Count);
 
         // Mark boss areas
         int roomId = 0;
