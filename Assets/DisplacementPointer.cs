@@ -6,6 +6,7 @@ public class DisplacementPointer : MonoBehaviour
 
     public Transform rotationMirror;
     public GameObject geometry;
+    public GameObject prompt;
     public DistanceTrigger trigger;
     public Camera PhoneCamera;
 
@@ -27,6 +28,7 @@ public class DisplacementPointer : MonoBehaviour
         {
             visible = trigger.shouldTrigger;
             geometry.SetActive(visible);
+            prompt.SetActive(visible);
 
             if (visible)
             {
