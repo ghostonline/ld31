@@ -8,6 +8,7 @@ public class PhoneController : MonoBehaviour {
     public Transform phone;
     public Transform normal;
     public Transform aim;
+    public PhoneUI ui;
     
     public int aimButton = 0;
     public int selectButton = 1;
@@ -58,7 +59,7 @@ public class PhoneController : MonoBehaviour {
         {
             if (hot && IsOnScreen())
             {
-                Debug.Log("Screen tap");
+                ui.OnScreenTap();
             }
             hot = false;
             selectDown = false;
