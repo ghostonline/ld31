@@ -4661,8 +4661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c1e5a7c104e6e4abcabb4a78fd59b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MazeWidth: 20
-  MazeHeight: 20
+  MazeWidth: 15
+  MazeHeight: 15
   CellWidth: 10
   CellHeight: 10
   EdgePillar: {fileID: 841853704}
