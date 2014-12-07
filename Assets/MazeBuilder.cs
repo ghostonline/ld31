@@ -44,6 +44,7 @@ public class MazeBuilder : MonoBehaviour {
         AddTemplate(EntranceMarker);
         AddTemplate(Floor);
         AddTemplate(turretBoss.gameObject);
+        AddTemplate(Key);
 
         floorCollider.transform.parent = transform;
         floorCollider.transform.localPosition = Vector3.zero;
