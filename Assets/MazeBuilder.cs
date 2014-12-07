@@ -21,6 +21,8 @@ public class MazeBuilder : MonoBehaviour {
     public Transform endMazeMarker;
     public Transform floorCollider;
 
+    public GameObject turretBoss;
+
     public bool NoWalls;
 
     void AddTemplate(GameObject template)
@@ -40,6 +42,8 @@ public class MazeBuilder : MonoBehaviour {
         AddTemplate(RoomMarker);
         AddTemplate(EntranceMarker);
         AddTemplate(Floor);
+        AddTemplate(turretBoss);
+
         floorCollider.transform.parent = transform;
         floorCollider.transform.localPosition = Vector3.zero;
 
@@ -243,7 +247,10 @@ public class MazeBuilder : MonoBehaviour {
             var entranceAngle = directionAngle[(int)entrance.wall];
             var entrancePos = right * entrance.cellX + down * entrance.cellY + entranceOffset;
             PlaceTemplate(EntranceMarker, entrancePos, entranceAngle, string.Format("BossEntrance_{0}", roomId));
-            
+
+            var center = roomPos + (right * room.width + down * room.height) * 0.5f;
+            PlaceTemplate(turretBoss, center, entranceAngle, string.Format("Boss_{0}", roomId));
+
             ++roomId;
         }
     }
