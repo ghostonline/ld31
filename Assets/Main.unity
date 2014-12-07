@@ -442,17 +442,17 @@ Light:
   serializedVersion: 3
   m_Type: 1
   m_Color: {r: .978327632, g: 1, b: .749019623, a: 1}
-  m_Intensity: .5
+  m_Intensity: .150000006
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_Strength: 1
     m_Bias: .0500000007
-    m_Softness: 4
-    m_SoftnessFade: 1
+    m_Softness: 5.5
+    m_SoftnessFade: 1.5
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_ActuallyLightmapped: 0
@@ -7075,7 +7075,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .19166474, g: .301966369, b: .474509805, a: 1}
+  m_BackGroundColor: {r: .0411841571, g: .0648853406, b: .101960786, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
