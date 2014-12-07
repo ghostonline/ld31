@@ -7,6 +7,9 @@ public class EndLevelTracker : MonoBehaviour {
     public GameObject winMessage;
     public GameObject marker;
 
+    public AudioSource player;
+    public AudioClip sfx;
+
     BoundArea bound;
 
     void Start()
@@ -24,6 +27,8 @@ public class EndLevelTracker : MonoBehaviour {
 
     void OnPickup(GameObject obj)
     {
+        player.PlayOneShot(sfx);
+
         winMessage.SetActive(true);
         keyCounter.SetUIVisible(false);
         SetVisible(false);

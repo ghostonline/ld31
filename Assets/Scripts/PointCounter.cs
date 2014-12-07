@@ -6,6 +6,8 @@ public class PointCounter : MonoBehaviour {
 
     public int points;
     public Text ui;
+    public AudioSource player;
+    public AudioClip sfx;
 
     int total;
 
@@ -22,6 +24,8 @@ public class PointCounter : MonoBehaviour {
 
     void OnPickup(GameObject point)
     {
+        player.PlayOneShot(sfx);
+
         Destroy(point);
         ++points;
         UpdateUI();

@@ -7,6 +7,8 @@ public class KeyCounter : MonoBehaviour {
 
     public GameObject[] keyIcons;
     public EndLevelTracker endGame;
+    public AudioSource player;
+    public AudioClip sfx;
 
     public void SetUIVisible(bool visible)
     {
@@ -25,6 +27,8 @@ public class KeyCounter : MonoBehaviour {
 
     void OnPickup(GameObject key)
     {
+        player.PlayOneShot(sfx);
+
         ++keys;
         SetUIVisible(true);
         Destroy(key);
