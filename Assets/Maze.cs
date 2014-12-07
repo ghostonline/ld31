@@ -98,8 +98,8 @@ public class Maze {
         {
             int areaWidth = width / 2;
             int areaHeight = height / 2;
-            const int roomWidth = 4;
-            const int roomHeight = 4;
+            const int roomWidth = 3;
+            const int roomHeight = 3;
 
             const int minOffsetX = 1; // Make sure there is at least a border of a single row between boss rooms
             const int minOffsetY = 1;
