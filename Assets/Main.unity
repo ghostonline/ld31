@@ -5827,6 +5827,7 @@ MonoBehaviour:
   VictoryPanel: {fileID: 1002374811}
   InGamePanel: {fileID: 1446702108}
   GameUI3DRoot: {fileID: 938377870}
+  SignText: {fileID: 1134194835}
 --- !u!1 &1513717166
 GameObject:
   m_ObjectHideFlags: 0
