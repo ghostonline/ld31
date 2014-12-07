@@ -256,6 +256,12 @@ public class MazeBuilder : MonoBehaviour {
             else
             {
                 endMazeMarker.position = transform.TransformPoint(center);
+                var area = endMazeMarker.GetComponent<BoundArea>();
+                area.objects = new GameObject[] {
+                    marker,
+                    entranceObj,
+                };
+                area.SetAreaVisible(false);
             }
 
             ++roomId;

@@ -6,6 +6,7 @@ public class KeyCounter : MonoBehaviour {
     public int keys;
 
     public GameObject[] keyIcons;
+    public EndLevelTracker endGame;
 
     public void SetUIVisible(bool visible)
     {
@@ -30,6 +31,11 @@ public class KeyCounter : MonoBehaviour {
         
         var area = key.GetComponent<BoundArea>();
         area.SetAreaVisible(false);
+
+        if (keys >= keyIcons.Length)
+        {
+            endGame.SetVisible(true);
+        }
     }
 
 }

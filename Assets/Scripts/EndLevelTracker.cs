@@ -3,27 +3,29 @@ using System.Collections;
 
 public class EndLevelTracker : MonoBehaviour {
 
-    public KeyCounter counter;
-    public int minKeyCount;
+    public KeyCounter keyCounter;
     public GameObject winMessage;
+    public GameObject marker;
+
+    BoundArea bound;
 
     void Start()
     {
+        bound = marker.GetComponent<BoundArea>();
         winMessage.SetActive(false);
+        SetVisible(false);
+    }
+
+    public void SetVisible(bool visible)
+    {
+        bound.SetAreaVisible(visible);
+        marker.SetActive(visible);
     }
 
     void OnPickup(GameObject obj)
     {
-        if (counter.keys < minKeyCount)
-        {
-            Debug.Log("Need more keys");
-        }
-        else
-        {
-            Destroy(obj);
-            Debug.Log("Game complete!");
-            counter.SetUIVisible(false);
-            winMessage.SetActive(true);
-        }
+        winMessage.SetActive(true);
+        keyCounter.SetUIVisible(false);
+        SetVisible(false);
     }
 }
