@@ -7385,7 +7385,7 @@ MonoBehaviour:
   floorCollider: {fileID: 1847808337}
   turretBoss: {fileID: 891967059}
   pointCounter: {fileID: 518325102}
-  NoWalls: 1
+  NoWalls: 0
 --- !u!1 &1480404568
 GameObject:
   m_ObjectHideFlags: 0

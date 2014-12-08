@@ -110,7 +110,9 @@ public class Maze {
 
     public static Maze Generate(int width, int height)
     {
-        var random = new Random((int)(UnityEngine.Random.value * Int32.MaxValue));
+        //var random = new Random((int)(UnityEngine.Random.value * Int32.MaxValue));
+        //var random = new Random(1234567);
+        var random = new Random(123456);
         var layout = new Cell[width * height];
 
         var bossRooms = new List<BossRoom>();
