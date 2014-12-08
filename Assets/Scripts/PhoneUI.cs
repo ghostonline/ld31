@@ -7,6 +7,7 @@ public class PhoneUI : MonoBehaviour {
 
     enum Screen
     {
+        Welcome,
         Sign,
         Victory,
         InGame,
@@ -15,9 +16,12 @@ public class PhoneUI : MonoBehaviour {
     public GameObject SignPanel;
     public GameObject VictoryPanel;
     public GameObject InGamePanel;
+    public GameObject WelcomePanel;
+    public GameObject TapPrompt;
 
     // 3D Game UI components
     public GameObject GameUI3DRoot;
+    public GameObject WelcomeUI3DRoot;
 
     public Text SignText;
 
@@ -27,12 +31,12 @@ public class PhoneUI : MonoBehaviour {
     void Awake()
     {
         signs = new List<string>();
-        current = Screen.InGame;
+        current = Screen.Welcome;
     }
     
     void Start()
     {
-        PushSign("Hello!");
+        ShowScreen(current);
     }
 
     void ShowScreen(Screen screen)
@@ -41,6 +45,9 @@ public class PhoneUI : MonoBehaviour {
         VictoryPanel.SetActive(screen == Screen.Victory);
         InGamePanel.SetActive(screen == Screen.InGame);
         GameUI3DRoot.SetActive(screen == Screen.InGame);
+        WelcomePanel.SetActive(screen == Screen.Welcome);
+        WelcomeUI3DRoot.SetActive(screen == Screen.Welcome);
+        TapPrompt.SetActive(screen == Screen.Welcome || screen == Screen.Sign);
         current = screen;
 
         if (signs.Count > 0) { SignText.text = signs[0]; }
@@ -59,6 +66,10 @@ public class PhoneUI : MonoBehaviour {
             {
                 ShowScreen(Screen.InGame);
             }
+        }
+        else if (current == Screen.Welcome)
+        {
+            ShowScreen(Screen.InGame);
         }
     }
 
