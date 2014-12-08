@@ -24,9 +24,13 @@ public class PhoneUI : MonoBehaviour {
     public GameObject WelcomeUI3DRoot;
 
     public Text SignText;
+    public float TapReadyTime;
 
     List<string> signs;
     Screen current;
+
+    bool showTap;
+    float tapTimer;
 
     void Awake()
     {
@@ -39,6 +43,18 @@ public class PhoneUI : MonoBehaviour {
         ShowScreen(current);
     }
 
+    void Update()
+    {
+        if (showTap && tapTimer > 0)
+        {
+            tapTimer -= Time.deltaTime;
+            if (tapTimer <= 0)
+            {
+                TapPrompt.SetActive(true);
+            }
+        }
+    }
+
     void ShowScreen(Screen screen)
     {
         SignPanel.SetActive(screen == Screen.Sign);
@@ -47,7 +63,9 @@ public class PhoneUI : MonoBehaviour {
         GameUI3DRoot.SetActive(screen == Screen.InGame);
         WelcomePanel.SetActive(screen == Screen.Welcome);
         WelcomeUI3DRoot.SetActive(screen == Screen.Welcome);
-        TapPrompt.SetActive(screen == Screen.Welcome || screen == Screen.Sign);
+        TapPrompt.SetActive(false);
+        showTap = screen == Screen.Welcome || screen == Screen.Sign;
+        tapTimer = TapReadyTime;
         current = screen;
 
         if (signs.Count > 0) { SignText.text = signs[0]; }
@@ -55,6 +73,8 @@ public class PhoneUI : MonoBehaviour {
 
     public void OnScreenTap()
     {
+        if (showTap && tapTimer > 0) { return; }
+
         if (current == Screen.Sign)
         {
             signs.RemoveAt(0);

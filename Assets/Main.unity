@@ -6551,6 +6551,7 @@ MonoBehaviour:
   GameUI3DRoot: {fileID: 938377870}
   WelcomeUI3DRoot: {fileID: 627434364}
   SignText: {fileID: 1134194835}
+  TapReadyTime: 2
 --- !u!1 &1513717166
 GameObject:
   m_ObjectHideFlags: 0
