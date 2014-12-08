@@ -25,6 +25,7 @@ public class PhoneUI : MonoBehaviour {
 
     public Text SignText;
     public Text ScoreText;
+    public Text TimerText;
     public float TapReadyTime;
 
     // Disable this when ready to tap
@@ -66,7 +67,13 @@ public class PhoneUI : MonoBehaviour {
             }
         }
 
-        if (current == Screen.InGame) { gameTimer += Time.deltaTime; }
+        if (current == Screen.InGame)
+        {
+            gameTimer += Time.deltaTime;
+            var minutes = Mathf.FloorToInt(gameTimer) / 60;
+            var seconds = Mathf.FloorToInt(gameTimer) % 60;
+            TimerText.text = string.Format("{0:D2}:{1:D2}", minutes, seconds);
+        }
     }
 
     void ShowScreen(Screen screen)
