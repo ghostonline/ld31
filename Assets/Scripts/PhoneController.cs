@@ -10,8 +10,7 @@ public class PhoneController : MonoBehaviour {
     public Transform aim;
     public PhoneUI ui;
     
-    public int aimButton = 0;
-    public int selectButton = 1;
+    public int selectButton = 0;
 
     bool aiming;
     bool hot;
@@ -36,12 +35,13 @@ public class PhoneController : MonoBehaviour {
     }
 
     void Update () {
-        if (Input.GetMouseButton(aimButton) && !aiming)
+        var aimBtnDown = Input.GetButton("Fire1");
+        if (aimBtnDown && !aiming)
         {
             AlignPhone(aim);
             aiming = true;
         }
-        else if (!Input.GetMouseButton(aimButton) && aiming)
+        else if (!aimBtnDown && aiming)
         {
             AlignPhone(normal);
             aiming = false;

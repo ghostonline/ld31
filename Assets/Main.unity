@@ -5814,7 +5814,6 @@ MonoBehaviour:
   normal: {fileID: 1887694883}
   aim: {fileID: 646704759}
   ui: {fileID: 1488881785}
-  aimButton: 1
   selectButton: 0
 --- !u!1 &1387895627
 GameObject:
