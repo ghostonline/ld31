@@ -4330,7 +4330,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tap the screen to continue
+  m_Text: Tap this screen to continue
 --- !u!222 &1059485172
 CanvasRenderer:
   m_ObjectHideFlags: 0
