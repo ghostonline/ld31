@@ -1060,7 +1060,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 71}
   m_SizeDelta: {x: 512, y: 128}
   m_Pivot: {x: .5, y: 1}
 --- !u!114 &300933483
@@ -4022,6 +4022,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1002374812}
   - 222: {fileID: 1002374813}
+  - 114: {fileID: 1002374814}
   m_Layer: 5
   m_Name: VictoryPanel
   m_TagString: Untagged
@@ -4053,6 +4054,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1002374811}
+--- !u!114 &1002374814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1002374811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: .670588255}
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!1 &1011141405
 GameObject:
   m_ObjectHideFlags: 0
@@ -4093,7 +4115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyCounter: {fileID: 598499439}
-  winMessage: {fileID: 1656129394}
+  pointCounter: {fileID: 518325102}
+  phoneUI: {fileID: 1488881785}
   marker: {fileID: 1685811468}
   player: {fileID: 639999835}
   sfx: {fileID: 8300000, guid: bc7ad3dad59855c48bbe417cf88f0dcc, type: 3}
@@ -4902,6 +4925,72 @@ MeshFilter:
   m_PrefabInternal: {fileID: 994344200}
   m_GameObject: {fileID: 1160720279}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1202429030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1202429031}
+  - 222: {fileID: 1202429033}
+  - 114: {fileID: 1202429032}
+  m_Layer: 5
+  m_Name: ScoreText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1202429031
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1202429030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: .999989927, y: .999989927, z: .999989927}
+  m_Children: []
+  m_Father: {fileID: 1656129395}
+  m_RootOrder: 2
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 0, y: -71}
+  m_SizeDelta: {x: 512, y: 128}
+  m_Pivot: {x: .5, y: 1}
+--- !u!114 &1202429032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1202429030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: .992156863, b: .0980392173, a: 1}
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 32
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Score Goes Here
+--- !u!222 &1202429033
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1202429030}
 --- !u!1 &1204139322
 GameObject:
   m_ObjectHideFlags: 0
@@ -6463,7 +6552,7 @@ MonoBehaviour:
   floorCollider: {fileID: 1847808337}
   turretBoss: {fileID: 891967059}
   pointCounter: {fileID: 518325102}
-  NoWalls: 0
+  NoWalls: 1
 --- !u!1 &1480404568
 GameObject:
   m_ObjectHideFlags: 0
@@ -6572,6 +6661,7 @@ MonoBehaviour:
   GameUI3DRoot: {fileID: 938377870}
   WelcomeUI3DRoot: {fileID: 627434364}
   SignText: {fileID: 1134194835}
+  ScoreText: {fileID: 1202429032}
   TapReadyTime: 2
   character: {fileID: 1369803294}
   horizLook: {fileID: 1369803295}
@@ -7081,6 +7171,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1656129395}
   - 114: {fileID: 1656129396}
+  - 222: {fileID: 1656129398}
   m_Layer: 5
   m_Name: WinMessage
   m_TagString: Untagged
@@ -7100,12 +7191,13 @@ RectTransform:
   m_Children:
   - {fileID: 1782860798}
   - {fileID: 300933482}
+  - {fileID: 1202429031}
   m_Father: {fileID: 1002374812}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 512, y: 818}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1656129396
 MonoBehaviour:
@@ -7119,6 +7211,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationMirror: {fileID: 639999837}
+--- !u!222 &1656129398
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656129394}
 --- !u!1001 &1663912295
 Prefab:
   m_ObjectHideFlags: 0
@@ -7807,7 +7905,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 71}
   m_SizeDelta: {x: 512, y: 128}
   m_Pivot: {x: .5, y: 0}
 --- !u!114 &1782860799
@@ -7835,7 +7933,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Congratulations!
+  m_Text: Congratulations
 --- !u!222 &1782860800
 CanvasRenderer:
   m_ObjectHideFlags: 0

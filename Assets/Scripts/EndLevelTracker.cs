@@ -4,7 +4,8 @@ using System.Collections;
 public class EndLevelTracker : MonoBehaviour {
 
     public KeyCounter keyCounter;
-    public GameObject winMessage;
+    public PointCounter pointCounter;
+    public PhoneUI phoneUI;
     public GameObject marker;
 
     public AudioSource player;
@@ -15,7 +16,6 @@ public class EndLevelTracker : MonoBehaviour {
     void Start()
     {
         bound = marker.GetComponent<BoundArea>();
-        winMessage.SetActive(false);
         SetVisible(false);
     }
 
@@ -29,7 +29,8 @@ public class EndLevelTracker : MonoBehaviour {
     {
         player.PlayOneShot(sfx);
 
-        winMessage.SetActive(true);
+        phoneUI.ShowVictory(pointCounter.points, pointCounter.GetTotal());
+
         keyCounter.SetUIVisible(false);
         SetVisible(false);
     }

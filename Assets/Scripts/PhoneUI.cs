@@ -24,6 +24,7 @@ public class PhoneUI : MonoBehaviour {
     public GameObject WelcomeUI3DRoot;
 
     public Text SignText;
+    public Text ScoreText;
     public float TapReadyTime;
 
     // Disable this when ready to tap
@@ -76,7 +77,6 @@ public class PhoneUI : MonoBehaviour {
         showTap = screen == Screen.Welcome || screen == Screen.Sign;
         tapTimer = TapReadyTime;
 
-
         current = screen;
 
         if (signs.Count > 0) { SignText.text = signs[0]; }
@@ -115,5 +115,13 @@ public class PhoneUI : MonoBehaviour {
         {
             ShowScreen(Screen.Sign);
         }
+    }
+
+    public void ShowVictory(int foundPoints, int foundTotal)
+    {
+        string fmt = "You found {0} out of {1} cubes.";
+        if (foundPoints == 1) { fmt = "You found one out of {1} cubes."; }
+        ScoreText.text = string.Format(fmt, foundPoints, foundTotal);
+        ShowScreen(Screen.Victory);
     }
 }

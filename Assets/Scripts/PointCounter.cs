@@ -17,6 +17,11 @@ public class PointCounter : MonoBehaviour {
         UpdateUI();
     }
 
+    public int GetTotal()
+    {
+        return total;
+    }
+
     void UpdateUI()
     {
         ui.text = string.Format("{0}/{1}", points, total);
