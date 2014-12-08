@@ -38,6 +38,8 @@ public class PhoneUI : MonoBehaviour {
     bool showTap;
     float tapTimer;
 
+    float gameTimer;
+
     void Awake()
     {
         signs = new List<string>();
@@ -63,6 +65,8 @@ public class PhoneUI : MonoBehaviour {
                 TapPrompt.SetActive(true);
             }
         }
+
+        if (current == Screen.InGame) { gameTimer += Time.deltaTime; }
     }
 
     void ShowScreen(Screen screen)
@@ -119,9 +123,15 @@ public class PhoneUI : MonoBehaviour {
 
     public void ShowVictory(int foundPoints, int foundTotal)
     {
-        string fmt = "You found {0} out of {1} cubes.";
-        if (foundPoints == 1) { fmt = "You found one out of {1} cubes."; }
-        ScoreText.text = string.Format(fmt, foundPoints, foundTotal);
+        var minutes = Mathf.FloorToInt(gameTimer) / 60;
+        var minuteStr = string.Format("{0} min", minutes);
+      
+        var seconds = Mathf.FloorToInt(gameTimer) % 60;
+        var secondStr = string.Format("{0} sec", seconds);
+
+        string fmt = "You found {0} out of {1} cubes in {2} and {3}.";
+        if (foundPoints == 1) { fmt = "You found one out of {1} cubes in {2} and {3}."; }
+        ScoreText.text = string.Format(fmt, foundPoints, foundTotal, minuteStr, secondStr);
         ShowScreen(Screen.Victory);
     }
 }
