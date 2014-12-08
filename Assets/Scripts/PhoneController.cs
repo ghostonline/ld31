@@ -35,7 +35,7 @@ public class PhoneController : MonoBehaviour {
     }
 
     void Update () {
-        var aimBtnDown = Input.GetButton("Fire1");
+        var aimBtnDown = Input.GetButton("Fire1") || Input.GetButton("Fire2");
         if (aimBtnDown && !aiming)
         {
             AlignPhone(aim);
