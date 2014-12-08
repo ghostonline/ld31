@@ -26,6 +26,11 @@ public class PhoneUI : MonoBehaviour {
     public Text SignText;
     public float TapReadyTime;
 
+    // Disable this when ready to tap
+    public CharacterMotor character;
+    public MouseLook horizLook;
+    public MouseLook vertLook;
+
     List<string> signs;
     Screen current;
 
@@ -45,6 +50,10 @@ public class PhoneUI : MonoBehaviour {
 
     void Update()
     {
+        character.canControl = current == Screen.InGame;
+        horizLook.enabled = current == Screen.InGame;
+        vertLook.enabled = current == Screen.InGame;
+
         if (showTap && tapTimer > 0)
         {
             tapTimer -= Time.deltaTime;
@@ -66,6 +75,8 @@ public class PhoneUI : MonoBehaviour {
         TapPrompt.SetActive(false);
         showTap = screen == Screen.Welcome || screen == Screen.Sign;
         tapTimer = TapReadyTime;
+
+
         current = screen;
 
         if (signs.Count > 0) { SignText.text = signs[0]; }
